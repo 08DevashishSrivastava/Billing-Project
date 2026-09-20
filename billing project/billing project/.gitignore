@@ -1,0 +1,30 @@
+# Environment files (contain credentials)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+storage/logs/*
+!storage/logs/.gitkeep
+
+# PDFs
+storage/pdfs/*
+!storage/pdfs/.gitkeep
+
+# Composer
+/vendor/
+
+# Node
+/node_modules/
+testsprite_tests/tmp/
+testsprite_tests/tmp/config.json

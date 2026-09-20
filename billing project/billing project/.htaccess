@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Do not rewrite requests that are already under the public directory
+    RewriteCond %{REQUEST_URI} !^/public(?:/|$)
+
+    # Only rewrite non-file, non-directory requests to the app front controller
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    RewriteRule ^(.*)$ public/$1 [L,QSA]
+</IfModule>
+
+# Optional: keep the public folder as the app root if the host serves this directory directly
+DirectoryIndex index.php

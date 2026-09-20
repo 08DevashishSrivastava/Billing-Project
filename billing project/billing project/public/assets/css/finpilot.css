@@ -1,0 +1,684 @@
+/**
+ * FinPilot Design System — "Obsidian Lumina"
+ * Designed with Stitch MCP (Project: 5182888583649964419)
+ * 
+ * Multi-planar dark glassmorphism, luminescent telemetry, and high-density precision typography.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+/* ==========================================================================
+   1. CSS Custom Properties / Design Tokens
+   ========================================================================== */
+:root {
+  /* Canvas & Obsidian Surfaces */
+  --fp-bg-canvas: #0b0f19;
+  --fp-bg-surface-base: #0d1322;
+  --fp-bg-surface-elevated: #131b2e;
+  --fp-bg-surface-high: #1c253b;
+  --fp-bg-surface-overlay: rgba(13, 19, 34, 0.85);
+
+  /* Translucent Glass Fills */
+  --fp-glass-bg: rgba(19, 27, 46, 0.65);
+  --fp-glass-bg-hover: rgba(26, 36, 61, 0.78);
+  --fp-glass-bg-subtle: rgba(255, 255, 255, 0.03);
+  --fp-glass-blur: blur(16px);
+  --fp-glass-blur-deep: blur(24px);
+
+  /* Primary Brand & Kinetic Indigo */
+  --fp-primary: #6366f1;
+  --fp-primary-hover: #818cf8;
+  --fp-primary-active: #4f46e5;
+  --fp-primary-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --fp-primary-gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(79, 70, 229, 0.05) 100%);
+  --fp-primary-glow: 0 0 24px -4px rgba(99, 102, 241, 0.4);
+  --fp-primary-border: rgba(99, 102, 241, 0.35);
+
+  /* Secondary Violet / Intelligence */
+  --fp-secondary: #8b5cf6;
+  --fp-secondary-hover: #a78bfa;
+  --fp-secondary-glow: 0 0 24px -4px rgba(139, 92, 246, 0.35);
+
+  /* Semantic Color Matrix */
+  --fp-success: #10b981;
+  --fp-success-hover: #34d399;
+  --fp-success-bg: rgba(16, 185, 129, 0.12);
+  --fp-success-border: rgba(16, 185, 129, 0.28);
+  --fp-success-glow: 0 0 20px -4px rgba(16, 185, 129, 0.35);
+
+  --fp-danger: #f43f5e;
+  --fp-danger-hover: #fb7185;
+  --fp-danger-bg: rgba(244, 63, 94, 0.12);
+  --fp-danger-border: rgba(244, 63, 94, 0.28);
+  --fp-danger-glow: 0 0 20px -4px rgba(244, 63, 94, 0.35);
+
+  --fp-warning: #f59e0b;
+  --fp-warning-hover: #fbbf24;
+  --fp-warning-bg: rgba(245, 158, 11, 0.12);
+  --fp-warning-border: rgba(245, 158, 11, 0.28);
+  --fp-warning-glow: 0 0 20px -4px rgba(245, 158, 11, 0.35);
+
+  --fp-info: #0ea5e9;
+  --fp-info-bg: rgba(14, 165, 233, 0.12);
+  --fp-info-border: rgba(14, 165, 233, 0.28);
+
+  /* Borders & Specular Reflections */
+  --fp-border-subtle: rgba(255, 255, 255, 0.08);
+  --fp-border-medium: rgba(255, 255, 255, 0.14);
+  --fp-border-glass-rim: rgba(255, 255, 255, 0.18);
+  --fp-border-active: rgba(99, 102, 241, 0.5);
+
+  /* Typography Palette */
+  --fp-text-primary: #f8fafc;
+  --fp-text-secondary: #cbd5e1;
+  --fp-text-muted: #94a3b8;
+  --fp-text-dim: #64748b;
+  --fp-text-ghost: #475569;
+
+  /* Shadows */
+  --fp-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --fp-shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+  --fp-shadow-lg: 0 20px 40px -12px rgba(0, 0, 0, 0.65);
+  --fp-shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  /* Radii */
+  --fp-radius-sm: 0.5rem;   /* 8px */
+  --fp-radius-md: 0.75rem;  /* 12px */
+  --fp-radius-lg: 1rem;     /* 16px */
+  --fp-radius-xl: 1.25rem;  /* 20px */
+  --fp-radius-full: 9999px;
+
+  /* Transitions */
+  --fp-transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --fp-transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --fp-transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   2. Base Styles & Global Resets
+   ========================================================================== */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at 10% 0%, #161e38 0%, #0b0f19 50%),
+              radial-gradient(circle at 90% 100%, #17102e 0%, #0b0f19 60%);
+  background-color: var(--fp-bg-canvas);
+  color: var(--fp-text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Font Classes */
+.fp-font-display {
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: -0.025em;
+}
+
+.fp-font-body {
+  font-family: 'Inter', sans-serif;
+}
+
+.fp-font-mono, .fp-nums {
+  font-family: 'JetBrains Mono', monospace;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+}
+
+/* ==========================================================================
+   3. Cards & Glassmorphism Surfaces
+   ========================================================================== */
+.fp-card {
+  background: var(--fp-glass-bg);
+  backdrop-filter: var(--fp-glass-blur);
+  -webkit-backdrop-filter: var(--fp-glass-blur);
+  border: 1px solid var(--fp-border-subtle);
+  border-top: 1px solid var(--fp-border-glass-rim);
+  border-radius: var(--fp-radius-lg);
+  box-shadow: var(--fp-shadow-card);
+  transition: var(--fp-transition-base);
+  position: relative;
+}
+
+.fp-card-interactive:hover {
+  background: var(--fp-glass-bg-hover);
+  border-color: var(--fp-border-medium);
+  border-top-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.fp-card-glow-primary {
+  box-shadow: var(--fp-shadow-card), var(--fp-primary-glow);
+}
+
+.fp-card-glow-success {
+  box-shadow: var(--fp-shadow-card), var(--fp-success-glow);
+}
+
+/* Metric / Stat Card */
+.fp-stat-card {
+  background: var(--fp-glass-bg);
+  backdrop-filter: var(--fp-glass-blur);
+  -webkit-backdrop-filter: var(--fp-glass-blur);
+  border: 1px solid var(--fp-border-subtle);
+  border-top: 1px solid var(--fp-border-glass-rim);
+  border-radius: var(--fp-radius-lg);
+  padding: 1.25rem 1.5rem;
+  transition: var(--fp-transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.fp-stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+
+.fp-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   4. Buttons & Action Elements
+   ========================================================================== */
+.fp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  line-height: 1.25;
+  border-radius: var(--fp-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--fp-transition-fast);
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Sizes */
+.fp-btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  border-radius: var(--fp-radius-sm);
+}
+
+.fp-btn-md {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.fp-btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--fp-radius-md);
+}
+
+/* Variants */
+.fp-btn-primary {
+  background: var(--fp-primary-gradient);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+}
+
+.fp-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.5);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+.fp-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.fp-btn-secondary {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--fp-border-medium);
+  color: var(--fp-text-secondary);
+}
+
+.fp-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--fp-text-primary);
+  transform: translateY(-1px);
+}
+
+.fp-btn-danger {
+  background: var(--fp-danger-bg);
+  border: 1px solid var(--fp-danger-border);
+  color: var(--fp-danger-hover);
+}
+
+.fp-btn-danger:hover {
+  background: rgba(244, 63, 94, 0.22);
+  border-color: rgba(244, 63, 94, 0.45);
+  color: #ffffff;
+  box-shadow: var(--fp-danger-glow);
+  transform: translateY(-1px);
+}
+
+.fp-btn-ghost {
+  background: transparent;
+  color: var(--fp-text-muted);
+}
+
+.fp-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--fp-text-primary);
+}
+
+.fp-btn:disabled, .fp-btn.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   5. Form Controls & Inputs
+   ========================================================================== */
+.fp-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.fp-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fp-text-muted);
+}
+
+.fp-input, .fp-select, .fp-textarea {
+  background: rgba(11, 15, 25, 0.65);
+  border: 1px solid var(--fp-border-subtle);
+  color: var(--fp-text-primary);
+  border-radius: var(--fp-radius-md);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  font-family: 'Inter', sans-serif;
+  transition: var(--fp-transition-fast);
+  outline: none;
+  width: 100%;
+}
+
+.fp-input:focus, .fp-select:focus, .fp-textarea:focus {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: var(--fp-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+.fp-input::placeholder, .fp-textarea::placeholder {
+  color: var(--fp-text-ghost);
+}
+
+/* Suppress native browser password reveal buttons (Edge, IE, Chromium) */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
+
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  visibility: hidden !important;
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.fp-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.125rem;
+  padding-right: 2.25rem;
+}
+
+.fp-select option {
+  background-color: var(--fp-bg-surface-elevated) !important;
+  color: var(--fp-text-primary) !important;
+}
+
+/* ==========================================================================
+   6. Badges & Telemetry Chips
+   ========================================================================== */
+.fp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--fp-radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.fp-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.fp-badge-dot.pulse {
+  animation: fpPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fpPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.fp-badge-income, .fp-badge-success {
+  background: var(--fp-success-bg);
+  border-color: var(--fp-success-border);
+  color: var(--fp-success-hover);
+}
+.fp-badge-income .fp-badge-dot, .fp-badge-success .fp-badge-dot {
+  background: var(--fp-success);
+}
+
+.fp-badge-expense, .fp-badge-danger {
+  background: var(--fp-danger-bg);
+  border-color: var(--fp-danger-border);
+  color: var(--fp-danger-hover);
+}
+.fp-badge-expense .fp-badge-dot, .fp-badge-danger .fp-badge-dot {
+  background: var(--fp-danger);
+}
+
+.fp-badge-warning {
+  background: var(--fp-warning-bg);
+  border-color: var(--fp-warning-border);
+  color: var(--fp-warning-hover);
+}
+.fp-badge-warning .fp-badge-dot {
+  background: var(--fp-warning);
+}
+
+.fp-badge-info {
+  background: var(--fp-info-bg);
+  border-color: var(--fp-info-border);
+  color: var(--fp-info);
+}
+.fp-badge-info .fp-badge-dot {
+  background: var(--fp-info);
+}
+
+.fp-badge-neutral {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--fp-border-subtle);
+  color: var(--fp-text-muted);
+}
+.fp-badge-neutral .fp-badge-dot {
+  background: var(--fp-text-dim);
+}
+
+/* ==========================================================================
+   7. Progress Bars & Gauges
+   ========================================================================== */
+.fp-progress-track {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--fp-radius-full);
+  overflow: hidden;
+  height: 0.5rem;
+}
+
+.fp-progress-fill {
+  height: 100%;
+  border-radius: var(--fp-radius-full);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fp-progress-primary { background: var(--fp-primary-gradient); }
+.fp-progress-success { background: linear-gradient(90deg, #10b981, #34d399); }
+.fp-progress-warning { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.fp-progress-danger  { background: linear-gradient(90deg, #f43f5e, #fb7185); }
+
+/* ==========================================================================
+   8. Tables & Ledgers
+   ========================================================================== */
+.fp-table-container {
+  background: var(--fp-glass-bg);
+  backdrop-filter: var(--fp-glass-blur);
+  border: 1px solid var(--fp-border-subtle);
+  border-radius: var(--fp-radius-lg);
+  overflow: hidden;
+}
+
+.fp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.fp-table th {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fp-text-muted);
+  border-bottom: 1px solid var(--fp-border-subtle);
+  text-align: left;
+}
+
+.fp-table td {
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--fp-text-secondary);
+  transition: var(--fp-transition-fast);
+}
+
+.fp-table tr:last-child td {
+  border-bottom: none;
+}
+
+.fp-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--fp-text-primary);
+}
+
+/* ==========================================================================
+   9. Alerts & Callouts
+   ========================================================================== */
+.fp-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--fp-radius-md);
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.fp-alert-info {
+  background: var(--fp-info-bg);
+  border-color: var(--fp-info-border);
+  color: #bae6fd;
+}
+
+.fp-alert-success {
+  background: var(--fp-success-bg);
+  border-color: var(--fp-success-border);
+  color: #a7f3d0;
+}
+
+.fp-alert-warning {
+  background: var(--fp-warning-bg);
+  border-color: var(--fp-warning-border);
+  color: #fde68a;
+}
+
+.fp-alert-danger {
+  background: var(--fp-danger-bg);
+  border-color: var(--fp-danger-border);
+  color: #fecdd3;
+}
+
+/* ==========================================================================
+   10. Modals & Dialogs
+   ========================================================================== */
+.fp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 15, 25, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fpFadeIn 0.2s ease-out;
+}
+
+.fp-modal-card {
+  background: rgba(19, 27, 46, 0.95);
+  backdrop-filter: var(--fp-glass-blur-deep);
+  border: 1px solid var(--fp-border-medium);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--fp-radius-xl);
+  box-shadow: var(--fp-shadow-lg), 0 0 1px 1px rgba(255, 255, 255, 0.1);
+  max-width: 32rem;
+  width: 100%;
+  animation: fpModalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@keyframes fpFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fpModalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ==========================================================================
+   11. Backward Compatibility Aliases (Preserves Existing App Pages!)
+   ========================================================================== */
+.glass {
+  background: var(--fp-glass-bg);
+  backdrop-filter: var(--fp-glass-blur);
+  -webkit-backdrop-filter: var(--fp-glass-blur);
+  border: 1px solid var(--fp-border-subtle);
+}
+
+.glass-card {
+  background: var(--fp-glass-bg);
+  backdrop-filter: var(--fp-glass-blur);
+  -webkit-backdrop-filter: var(--fp-glass-blur);
+  border: 1px solid var(--fp-border-subtle);
+  border-top: 1px solid var(--fp-border-glass-rim);
+  box-shadow: var(--fp-shadow-card);
+  transition: var(--fp-transition-base);
+}
+
+.glass-card:hover {
+  background: var(--fp-glass-bg-hover);
+  border-color: var(--fp-border-medium);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--fp-primary-gradient) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35) !important;
+  transition: var(--fp-transition-fast) !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--fp-border-medium) !important;
+  color: var(--fp-text-secondary) !important;
+  transition: var(--fp-transition-fast) !important;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+.input-field {
+  background: rgba(11, 15, 25, 0.6) !important;
+  border: 1px solid var(--fp-border-subtle) !important;
+  color: var(--fp-text-primary) !important;
+  transition: var(--fp-transition-fast) !important;
+}
+
+.input-field:focus {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border-color: var(--fp-primary) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+}
+
+.table-glass {
+  background: transparent !important;
+}
+
+.table-glass th {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-bottom: 1px solid var(--fp-border-subtle) !important;
+  color: var(--fp-text-muted) !important;
+}
+
+.table-glass tr:hover td {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.table-glass td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--fp-radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-income  { background: var(--fp-success-bg); color: var(--fp-success-hover); border: 1px solid var(--fp-success-border); }
+.badge-expense { background: var(--fp-danger-bg);  color: var(--fp-danger-hover);  border: 1px solid var(--fp-danger-border); }
+.badge-neutral { background: rgba(255,255,255,0.05); color: var(--fp-text-muted); border: 1px solid var(--fp-border-subtle); }
+.badge-success { background: var(--fp-success-bg); color: var(--fp-success-hover); border: 1px solid var(--fp-success-border); }
+.badge-warning { background: var(--fp-warning-bg); color: var(--fp-warning-hover); border: 1px solid var(--fp-warning-border); }
+.badge-info    { background: var(--fp-info-bg);    color: var(--fp-info);          border: 1px solid var(--fp-info-border); }
